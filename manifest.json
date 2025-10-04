@@ -1,0 +1,10 @@
+{
+  "id": "task-reward",
+  "name": "Task Reward",
+  "version": "1.0.0",
+  "minAppVersion": "1.4.0",
+  "description": "Celebrate completed tasks with instant sound and confetti right inside Obsidian.",
+  "author": "wilbeibi",
+  "authorUrl": "https://github.com/wilbeibi/",
+  "isDesktopOnly": false
+}
