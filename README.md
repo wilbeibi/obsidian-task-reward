@@ -2,7 +2,6 @@
 
 Give yourself an instant celebration every time you complete a task in Obsidian. Task Reward plays a short audio cue and launches a burst of confetti straight from the checkbox you just ticked.
 
-https://github.com/hongyis/obsidian-task-reward/assets/demo-confetti.gif
 
 ## Features
 
