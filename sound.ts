@@ -23,6 +23,27 @@ export class SoundManager {
     this.plugin.registerDomEvent(window, 'keydown', this.unlockHandler);
   }
 
+  async prewarm() {
+    const loading = this.loading;
+    if (loading) {
+      try {
+        await loading;
+      } catch (error) {
+        console.warn('Task Reward: Prewarm failed during load', error);
+      }
+    }
+
+    this.ensureAudioContext();
+
+    if (this.audioElement) {
+      try {
+        this.audioElement.load();
+      } catch (error) {
+        console.warn('Task Reward: HTML audio prewarm failed', error);
+      }
+    }
+  }
+
   private async loadSound() {
     try {
       const adapter: any = this.plugin.app.vault.adapter;

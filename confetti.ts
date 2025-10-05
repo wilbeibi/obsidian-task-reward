@@ -36,6 +36,10 @@ export class ConfettiManager {
     this.setupCanvas();
   }
 
+  prewarm() {
+    this.ensureCanvas();
+  }
+
   private setupCanvas() {
     if (this.canvas) return;
 

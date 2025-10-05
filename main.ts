@@ -30,6 +30,12 @@ export default class TaskRewardPlugin extends Plugin {
     this.soundManager = new SoundManager(this);
     this.confettiManager = new ConfettiManager(this);
 
+    // Prewarm feedback assets so the first completion feels instant
+    this.soundManager.prewarm().catch((error) => {
+      console.warn('Task Reward: Sound prewarm failed', error);
+    });
+    this.confettiManager.prewarm();
+
     // Listen for task state changes
     this.registerEvent(
       this.app.metadataCache.on('changed', (file, _data, cache) => {

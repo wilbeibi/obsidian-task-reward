@@ -140,6 +140,24 @@ var SoundManager = class {
     this.plugin.registerDomEvent(window, "pointerdown", this.unlockHandler);
     this.plugin.registerDomEvent(window, "keydown", this.unlockHandler);
   }
+  async prewarm() {
+    const loading = this.loading;
+    if (loading) {
+      try {
+        await loading;
+      } catch (error) {
+        console.warn("Task Reward: Prewarm failed during load", error);
+      }
+    }
+    this.ensureAudioContext();
+    if (this.audioElement) {
+      try {
+        this.audioElement.load();
+      } catch (error) {
+        console.warn("Task Reward: HTML audio prewarm failed", error);
+      }
+    }
+  }
   async loadSound() {
     var _a;
     try {
@@ -472,6 +490,9 @@ var ConfettiManager = class {
     this.plugin = plugin;
     this.setupCanvas();
   }
+  prewarm() {
+    this.ensureCanvas();
+  }
   setupCanvas() {
     if (this.canvas)
       return;
@@ -637,6 +658,10 @@ var TaskRewardPlugin = class extends import_obsidian3.Plugin {
     await this.loadSettings();
     this.soundManager = new SoundManager(this);
     this.confettiManager = new ConfettiManager(this);
+    this.soundManager.prewarm().catch((error) => {
+      console.warn("Task Reward: Sound prewarm failed", error);
+    });
+    this.confettiManager.prewarm();
     this.registerEvent(
       this.app.metadataCache.on("changed", (file, _data, cache) => {
         if (file instanceof import_obsidian3.TFile && file.extension === "md") {
